@@ -9,6 +9,21 @@ import logging
 import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
+import yaml
+
+
+from pathlib import Path
+
+
+def load_config(config_path=None):
+    """Load configuration from YAML file."""
+    if config_path is None:
+        config_path = Path(__file__).parent / 'config.yaml'
+    if not config_path.exists():
+        return {}
+    with open(config_path) as _f:
+        import yaml as _yaml
+        return _yaml.safe_load(_f) or {}
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format='%(message)s')
@@ -35,7 +50,7 @@ def hyperbolic_cumulative(t, qi, Di, b):
     return (qi ** b) / ((1 - b) * Di) * (qi ** (1 - b) - 
            (qi / (1 + b * Di * t)) ** (1 - b))
 
-np.random.seed(42)
+np.random.seed(config.get('data', {}).get('seed', 42))
 n_months = 60
 
 # Bakken well parameters
@@ -56,7 +71,7 @@ forecast_cumulative = hyperbolic_cumulative(forecast_months, qi_oil, Di, b)
 cumulative_actual = np.cumsum(oil_rate * 30.44)
 
 # Create figure
-fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+fig, axes = plt.subplots(2, 2, figsize=tuple(config.get('output', {}).get('figsize', [14, 10])))
 
 # Rate decline - monochrome styling
 ax1 = axes[0, 0]
