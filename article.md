@@ -1,36 +1,17 @@
+---
+author: "Kyle Jones"
+date_published: "February 12, 2025"
+date_exported_from_medium: "November 10, 2025"
+canonical_link: "https://medium.com/@kyle-t-jones/decline-curve-analysis-for-oil-gas-wells-in-the-bakken-formation-in-north-dakota-ce4cbccb91e8"
+---
+
 # Decline Curve Analysis for Oil & Gas Wells in the Bakken Formation in North Dakota Decline curve analysis is a technique in petroleum engineering used to
 predict how wells will produce over time. This approach helps...
 
 ### Decline Curve Analysis for Oil & Gas Wells in the Bakken Formation in North Dakota
-Decline curve analysis is a technique in petroleum engineering used to
-predict how wells will produce over time. This approach helps operators
-and investors understand which companies are managing their assets most
-effectively. Using publicly available production data from the State of
-North Dakota, we can fit mathematical models to well output and rank
-operators based on their long-term production potential.
+Decline curve analysis is a technique in petroleum engineering used to predict how wells will produce over time. This approach helps operators and investors understand which companies are managing their assets most effectively. Using publicly available production data from the State of North Dakota, we can fit mathematical models to well output and rank operators based on their long-term production potential.
 
-
-<figcaption>Photo by <a
-href="https://unsplash.com/@neganova?utm_source=medium&amp;utm_medium=referral"
-class="markup--anchor markup--figure-anchor"
-data-href="https://unsplash.com/@neganova?utm_source=medium&amp;utm_medium=referral"
-rel="photo-creator noopener" target="_blank">Valeriia Neganova</a> on <a
-href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral"
-class="markup--anchor markup--figure-anchor"
-data-href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral"
-rel="photo-source noopener" target="_blank">Unsplash</a></figcaption>
-
-
-Our analysis began with data from the North Dakota Monthly Production
-Report Index. This dataset provides well-level production statistics,
-including oil, gas, and water output, as well as details on well
-operators. Since our objective was to assess production trends across
-operators, we first structured the data by extracting relevant fields,
-converting date formats, and aggregating monthly production figures.
-Given that our data started in January 2016, we did not have the true
-initial production rates for many wells. Instead, we worked with
-available data to fit decline curves based on observed production
-trends.
+Our analysis began with data from the North Dakota Monthly Production Report Index. This dataset provides well-level production statistics, including oil, gas, and water output, as well as details on well operators. Since our objective was to assess production trends across operators, we first structured the data by extracting relevant fields, converting date formats, and aggregating monthly production figures. Given that our data started in January 2016, we did not have the true initial production rates for many wells. Instead, we worked with available data to fit decline curves based on observed production trends.
 
 ```python
 import requests
@@ -116,16 +97,7 @@ else:
         print("No valid data to merge.")
 ```
 
-To model decline behavior, we chose the hyperbolic decline model which
-captures gradual slowdowns typical of unconventional wells. This model
-accounts for a higher initial drop-off followed by a more stable
-production period than exponential decline, making it well-suited for
-the Bakken's shale oil formations. The hyperbolic equation relies on
-three parameters: an estimated initial production rate, an initial
-decline rate, and a b-factor, which governs how decline slows over time.
-We fit this model to each well's monthly production data and derived
-these parameters for each well that has at least five months of
-production.
+To model decline behavior, we chose the hyperbolic decline model which captures gradual slowdowns typical of unconventional wells. This model accounts for a higher initial drop-off followed by a more stable production period than exponential decline, making it well-suited for the Bakken's shale oil formations. The hyperbolic equation relies on three parameters: an estimated initial production rate, an initial decline rate, and a b-factor, which governs how decline slows over time. We fit this model to each well's monthly production data and derived these parameters for each well that has at least five months of production.
 
 ```python
 import pandas as pd
@@ -195,9 +167,7 @@ plt.legend()
 plt.show()
 ```
 
-
 <figcaption>Example of one well with DCA</figcaption>
-
 
 ``` 
 # Print the estimated parameters
@@ -242,16 +212,9 @@ df_decline.to_csv("hyperbolic_decline_results_with_EUR.csv", index=False)
 print(df_decline.sort_values("D_i", ascending=False).head(10))
 ```
 
-With the decline curves for individual wells calculated (41,527 wells!),
-the next step was to evaluate operator performance. This required
-associating each well with its operator and aggregating results at the
-company level.
+With the decline curves for individual wells calculated (41,527 wells!), the next step was to evaluate operator performance. This required associating each well with its operator and aggregating results at the company level.
 
-Inconsistencies in operator names --- such as variations in
-capitalization and punctuation --- posed a challenge. To address this,
-we standardized all operator names by converting them to uppercase and
-removing punctuation. This step ensured that wells belonging to the same
-company were correctly grouped together.
+Inconsistencies in operator names --- such as variations in capitalization and punctuation --- posed a challenge. To address this, we standardized all operator names by converting them to uppercase and removing punctuation. This step ensured that wells belonging to the same company were correctly grouped together.
 
 ```python
 import pandas as pd
@@ -303,20 +266,6 @@ df_operator.to_csv("operator_performance_ranking.csv", index=False)
 print("Operator performance ranking saved to operator_performance_ranking.csv")
 ```
 
-Then, we computed aggregate performance metrics for each company using
-Estimated Ultimate Recovery (EUR), which represents the total
-recoverable oil a well or operator is expected to produce over its
-lifetime. By summing EUR values across wells, we identified the best
-(and worst) performing operators in the Bakken since 2016 from 233
-unique operators.
+Then, we computed aggregate performance metrics for each company using Estimated Ultimate Recovery (EUR), which represents the total recoverable oil a well or operator is expected to produce over its lifetime. By summing EUR values across wells, we identified the best (and worst) performing operators in the Bakken since 2016 from 233 unique operators.
 
-
-This approach offers insights for operators, investors, and policymakers
-seeking to understand production trends in the Bakken.
-::::::::By [Kyle Jones](https://medium.com/@kyle-t-jones) on
-[February 12, 2025](https://medium.com/p/ce4cbccb91e8).
-
-[Canonical
-link](https://medium.com/@kyle-t-jones/decline-curve-analysis-for-oil-gas-wells-in-the-bakken-formation-in-north-dakota-ce4cbccb91e8)
-
-Exported from [Medium](https://medium.com) on November 10, 2025.
+This approach offers insights for operators, investors, and policymakers seeking to understand production trends in the Bakken.
