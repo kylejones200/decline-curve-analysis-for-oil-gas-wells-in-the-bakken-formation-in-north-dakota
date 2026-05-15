@@ -40,7 +40,7 @@ def hyperbolic_cumulative(t, qi, Di, b):
     return (qi ** b) / ((1 - b) * Di) * (qi ** (1 - b) - 
            (qi / (1 + b * Di * t)) ** (1 - b))
 
-np.random.seed(config.get('data', {}).get('seed', 42))
+np.random.seed(42)
 n_months = 60
 
 # Bakken well parameters
