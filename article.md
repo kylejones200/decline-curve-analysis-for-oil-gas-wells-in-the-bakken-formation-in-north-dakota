@@ -165,11 +165,7 @@ plt.ylabel("Oil Production (BBL)")
 plt.title(f"Hyperbolic Decline Fit for {well_name}")
 plt.legend()
 plt.show()
-```
 
-<figcaption>Example of one well with DCA</figcaption>
-
-``` 
 # Print the estimated parameters
 print(f"Estimated Initial Production (q_i): {q_i:.2f} BBL")
 print(f"Estimated Initial Decline Rate (D_i): {D_i:.4f} per month")
