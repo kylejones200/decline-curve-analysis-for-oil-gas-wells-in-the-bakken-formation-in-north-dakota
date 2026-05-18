@@ -8,11 +8,11 @@ import pandas as pd
 
 
 def notebook_step_001() -> None:
-    df = pd.read_csv("data/bakken/combinedfile.csv")
+    pd.read_csv("data/bakken/combinedfile.csv")
 
 
 def notebook_step_002() -> None:
-    d = df[df["County"] == "MCK"]
+    df[df["County"] == "MCK"]
 
 
 def notebook_step_003() -> None:
@@ -29,35 +29,24 @@ def notebook_step_005() -> None:
 
 def notebook_step_006() -> None:
     d = df.copy()
-
     d.index("ReportDate", inplace=True)
 
 
 def notebook_step_007() -> None:
-    df_pivot = pd.pivot_table(
-        df, index=df.index.month, columns=df.index.year, values="Data"
-    )
+    pd.pivot_table(df, index=df.index.month, columns=df.index.year, values="Data")
 
 
 def create_fake_time_series_dataframe() -> None:
     index = pd.date_range(start="01-Jan-2012", end="01-01-2019", freq="M")
-
     data = np.random.randn(len(index))
-
     df = pd.DataFrame(data, index, columns=["Data"])
-
     df_pivot = pd.pivot_table(
         df, index=df.index.month, columns=df.index.year, values="Data"
     )
-
     ax = df_pivot.plot(title="Data by Year", figsize=(6, 4))
-
     ax.get_lines()[-1].set_linewidth(5)
-
     ax.legend(loc="center left", bbox_to_anchor=(1, 0.5))
-
     ax.figure.tight_layout()
-
     plt.show()
 
 
@@ -66,9 +55,7 @@ def notebook_step_009() -> None:
 
 
 def notebook_step_010() -> None:
-    d_pivot = pd.pivot_table(
-        d, index=d["ReportDate"], columns=d["WellName"], values=d["Oil"]
-    )
+    pd.pivot_table(d, index=d["ReportDate"], columns=d["WellName"], values=d["Oil"])
 
 
 def notebook_step_011() -> None:
